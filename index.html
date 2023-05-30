@@ -47,12 +47,10 @@
             text-transform: lowercase;
         }
 
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: #ffffff;
-            border: none;
-            cursor: pointer;
+        .responsive-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
         }
 
         p {
@@ -65,14 +63,16 @@
     <div class="container">
         <h1>Calculateur de pourcentage de victoire</h1>
         <form class="otp-form">
-            <input class="otp-input uppercase" type="text" id="a" minlength="1" maxlength="1" oninput="focusNextInput(this)"
-                onkeydown="handleBackspace(event)" required placeholder="A">
-            <input class="otp-input uppercase" type="text" id="b" minlength="1" maxlength="1" oninput="focusNextInput(this)"
-                onkeydown="handleBackspace(event)" placeholder="Q" required>
-            <input class="otp-input lowercase" type="text" id="c" minlength="0" maxlength="1" oninput="calculerPourcentage()"
-                onkeydown="handleBackspace(event)" placeholder="s">
+            <input class="otp-input uppercase" type="text" id="a" minlength="1" maxlength="1"
+                oninput="focusNextInput(this)" onkeydown="handleBackspace(event)" required placeholder="A">
+            <input class="otp-input uppercase" type="text" id="b" minlength="1" maxlength="1"
+                oninput="focusNextInput(this)" onkeydown="handleBackspace(event)" placeholder="Q" required>
+            <input class="otp-input lowercase" type="text" id="c" minlength="0" maxlength="1"
+                oninput="calculerPourcentage()" onkeydown="handleBackspace(event)" placeholder="s">
         </form>
         <p id="sentence"></p>
+        <img class="responsive-image"
+            src="https://image.noelshack.com/fichiers/2023/22/2/1685482116-poker-2-darkmode.png" alt="Example Image">
     </div>
 
     <script>
