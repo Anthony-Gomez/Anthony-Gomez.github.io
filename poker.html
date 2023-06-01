@@ -4,7 +4,7 @@
 <head>
     <meta lang="FR">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Preflop</title>
+    <title>π - Poker♠️Instinct</title>
     <style>
         body {
             background-color: #1e1e1e;
@@ -66,15 +66,18 @@
         <h1>Calculateur de pourcentage de victoire</h1>
         <form class="cardcode-form">
             <input class="cardcode-input uppercase" type="text" id="a" minlength="1" maxlength="1"
-                oninput="focusNextInput(this)" onkeydown="handleBackspace(event)" required placeholder="A">
+                oninput="focusNextInput(this)" onkeydown="handleBackspace(event)" required placeholder="A"
+                autoComplete='off'>
             <input class="cardcode-input uppercase" type="text" id="b" minlength="1" maxlength="1"
-                oninput="checkEquality(this)" onkeydown="handleBackspace(event)" placeholder="Q" required>
+                oninput="checkEquality(this)" onkeydown="handleBackspace(event)" placeholder="Q" required
+                autoComplete='off'>
             <input class="cardcode-input lowercase" type="text" id="c" minlength="0" maxlength="1"
-                oninput="calculerPourcentage()" onkeydown="handleBackspace(event)" placeholder="s">
+                oninput="calculerPourcentage()" onkeydown="handleBackspace(event)" placeholder="s" autoComplete='off'>
         </form>
         <p id="sentence"></p>
-        <img class="responsive-image"
-            src="https://image.noelshack.com/fichiers/2023/22/2/1685482116-poker-2-darkmode.png" alt="Example Image">
+        <!--
+            <img class="responsive-image" src="https://image.noelshack.com/fichiers/2023/22/2/1685482116-poker-2-darkmode.png" alt="Example Image"
+        -->
     </div>
 
     <script>
