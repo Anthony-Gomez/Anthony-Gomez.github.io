@@ -2,8 +2,9 @@
 <html>
 
 <head>
+    <meta lang="FR">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Calculateur de pourcentage de victoire</title>
+    <title>Preflop</title>
     <style>
         body {
             background-color: #1e1e1e;
@@ -24,13 +25,13 @@
             margin-bottom: 20px;
         }
 
-        .otp-form {
+        .cardcode-form {
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
         }
 
-        .otp-input {
+        .cardcode-input {
             width: 40px;
             height: 40px;
             margin-right: 10px;
@@ -40,11 +41,11 @@
             border: none;
         }
 
-        .otp-input.uppercase {
+        .cardcode-input.uppercase {
             text-transform: uppercase;
         }
 
-        .otp-input.lowercase {
+        .cardcode-input.lowercase {
             text-transform: lowercase;
         }
 
@@ -63,12 +64,12 @@
 <body>
     <div class="container">
         <h1>Calculateur de pourcentage de victoire</h1>
-        <form class="otp-form">
-            <input class="otp-input uppercase" type="text" id="a" minlength="1" maxlength="1"
+        <form class="cardcode-form">
+            <input class="cardcode-input uppercase" type="text" id="a" minlength="1" maxlength="1"
                 oninput="focusNextInput(this)" onkeydown="handleBackspace(event)" required placeholder="A">
-            <input class="otp-input uppercase" type="text" id="b" minlength="1" maxlength="1"
-                oninput="focusNextInput(this)" onkeydown="handleBackspace(event)" placeholder="Q" required>
-            <input class="otp-input lowercase" type="text" id="c" minlength="0" maxlength="1"
+            <input class="cardcode-input uppercase" type="text" id="b" minlength="1" maxlength="1"
+                oninput="checkEquality(this)" onkeydown="handleBackspace(event)" placeholder="Q" required>
+            <input class="cardcode-input lowercase" type="text" id="c" minlength="0" maxlength="1"
                 oninput="calculerPourcentage()" onkeydown="handleBackspace(event)" placeholder="s">
         </form>
         <p id="sentence"></p>
@@ -77,161 +78,75 @@
     </div>
 
     <script>
-        document.querySelector(".otp-form").addEventListener("submit", function (event) {
+
+        document.querySelector(".cardcode-form").addEventListener("submit", function (event) {
             event.preventDefault();
             calculerPourcentage();
         });
 
-        var Combinaisons = [
-            { "combinaison": "AA", "pourcentage": 85 },
-            { "combinaison": "KK", "pourcentage": 82 },
-            { "combinaison": "QQ", "pourcentage": 79 },
-            { "combinaison": "JJ", "pourcentage": 77 },
-            { "combinaison": "AKs", "pourcentage": 65 },
-            { "combinaison": "TT", "pourcentage": 73 },
-            { "combinaison": "AQs", "pourcentage": 63 },
-            { "combinaison": "AKo", "pourcentage": 62 },
-            { "combinaison": "99", "pourcentage": 70 },
-            { "combinaison": "88", "pourcentage": 67 },
-            { "combinaison": "AJs", "pourcentage": 61 },
-            { "combinaison": "AQo", "pourcentage": 60 },
-            { "combinaison": "77", "pourcentage": 64 },
-            { "combinaison": "66", "pourcentage": 62 },
-            { "combinaison": "55", "pourcentage": 60 },
-            { "combinaison": "AJo", "pourcentage": 59 },
-            { "combinaison": "44", "pourcentage": 58 },
-            { "combinaison": "33", "pourcentage": 55 },
-            { "combinaison": "22", "pourcentage": 53 },
-            { "combinaison": "ATs", "pourcentage": 57 },
-            { "combinaison": "ATo", "pourcentage": 56 },
-            { "combinaison": "KQs", "pourcentage": 54 },
-            { "combinaison": "A9s", "pourcentage": 53 },
-            { "combinaison": "KJs", "pourcentage": 52 },
-            { "combinaison": "KQo", "pourcentage": 51 },
-            { "combinaison": "A8s", "pourcentage": 51 },
-            { "combinaison": "KTs", "pourcentage": 50 },
-            { "combinaison": "A7s", "pourcentage": 50 },
-            { "combinaison": "KJo", "pourcentage": 49 },
-            { "combinaison": "KTo", "pourcentage": 48 },
-            { "combinaison": "QJs", "pourcentage": 48 },
-            { "combinaison": "A6s", "pourcentage": 47 },
-            { "combinaison": "QTs", "pourcentage": 47 },
-            { "combinaison": "K9s", "pourcentage": 46 },
-            { "combinaison": "QJo", "pourcentage": 45 },
-            { "combinaison": "K8s", "pourcentage": 45 },
-            { "combinaison": "Q9s", "pourcentage": 44 },
-            { "combinaison": "K7s", "pourcentage": 44 },
-            { "combinaison": "K6s", "pourcentage": 43 },
-            { "combinaison": "K5s", "pourcentage": 43 },
-            { "combinaison": "Q8s", "pourcentage": 42 },
-            { "combinaison": "K4s", "pourcentage": 42 },
-            { "combinaison": "Q7s", "pourcentage": 41 },
-            { "combinaison": "K3s", "pourcentage": 41 },
-            { "combinaison": "K2s", "pourcentage": 40 },
-            { "combinaison": "Q6s", "pourcentage": 40 },
-            { "combinaison": "Q5s", "pourcentage": 39 },
-            { "combinaison": "Q4s", "pourcentage": 39 },
-            { "combinaison": "Q3s", "pourcentage": 38 },
-            { "combinaison": "Q2s", "pourcentage": 38 },
-            { "combinaison": "A5s", "pourcentage": 38 },
-            { "combinaison": "A4s", "pourcentage": 37 },
-            { "combinaison": "A3s", "pourcentage": 37 },
-            { "combinaison": "A2s", "pourcentage": 36 },
-            { "combinaison": "JTs", "pourcentage": 36 },
-            { "combinaison": "J9s", "pourcentage": 35 },
-            { "combinaison": "J8s", "pourcentage": 34 },
-            { "combinaison": "J7s", "pourcentage": 34 },
-            { "combinaison": "J6s", "pourcentage": 33 },
-            { "combinaison": "J5s", "pourcentage": 33 },
-            { "combinaison": "J4s", "pourcentage": 32 },
-            { "combinaison": "J3s", "pourcentage": 32 },
-            { "combinaison": "J2s", "pourcentage": 31 },
-            { "combinaison": "T9s", "pourcentage": 31 },
-            { "combinaison": "A8o", "pourcentage": 35 },
-            { "combinaison": "K9o", "pourcentage": 34 },
-            { "combinaison": "Q9o", "pourcentage": 32 },
-            { "combinaison": "J9o", "pourcentage": 31 },
-            { "combinaison": "T9o", "pourcentage": 31 },
-            { "combinaison": "A7o", "pourcentage": 34 },
-            { "combinaison": "K7o", "pourcentage": 32 },
-            { "combinaison": "Q7o", "pourcentage": 30 },
-            { "combinaison": "J7o", "pourcentage": 29 },
-            { "combinaison": "T7s", "pourcentage": 29 },
-            { "combinaison": "A6o", "pourcentage": 33 },
-            { "combinaison": "K6o", "pourcentage": 31 },
-            { "combinaison": "Q6o", "pourcentage": 29 },
-            { "combinaison": "J6o", "pourcentage": 28 },
-            { "combinaison": "T6s", "pourcentage": 28 },
-            { "combinaison": "A5o", "pourcentage": 32 },
-            { "combinaison": "K5o", "pourcentage": 30 },
-            { "combinaison": "Q5o", "pourcentage": 28 },
-            { "combinaison": "J5o", "pourcentage": 27 },
-            { "combinaison": "T5s", "pourcentage": 27 },
-            { "combinaison": "A4o", "pourcentage": 31 },
-            { "combinaison": "K4o", "pourcentage": 29 },
-            { "combinaison": "Q4o", "pourcentage": 27 },
-            { "combinaison": "J4o", "pourcentage": 26 },
-            { "combinaison": "T4s", "pourcentage": 26 },
-            { "combinaison": "A3o", "pourcentage": 30 },
-            { "combinaison": "K3o", "pourcentage": 28 },
-            { "combinaison": "Q3o", "pourcentage": 26 },
-            { "combinaison": "J3o", "pourcentage": 25 },
-            { "combinaison": "T3s", "pourcentage": 25 },
-            { "combinaison": "A2o", "pourcentage": 29 },
-            { "combinaison": "K2o", "pourcentage": 27 },
-            { "combinaison": "Q2o", "pourcentage": 25 },
-            { "combinaison": "J2o", "pourcentage": 24 },
-            { "combinaison": "T2s", "pourcentage": 24 },
-            { "combinaison": "98s", "pourcentage": 23 },
-            { "combinaison": "87s", "pourcentage": 22 },
-            { "combinaison": "76s", "pourcentage": 21 },
-            { "combinaison": "65s", "pourcentage": 20 },
-            { "combinaison": "54s", "pourcentage": 19 },
-            { "combinaison": "43s", "pourcentage": 18 },
-            { "combinaison": "32s", "pourcentage": 17 },
-            { "combinaison": "97s", "pourcentage": 22 },
-            { "combinaison": "86s", "pourcentage": 21 },
-            { "combinaison": "75s", "pourcentage": 20 },
-            { "combinaison": "64s", "pourcentage": 19 },
-            { "combinaison": "53s", "pourcentage": 18 },
-            { "combinaison": "42s", "pourcentage": 17 },
-            { "combinaison": "96s", "pourcentage": 21 },
-            { "combinaison": "85s", "pourcentage": 20 },
-            { "combinaison": "74s", "pourcentage": 19 },
-            { "combinaison": "63s", "pourcentage": 18 },
-            { "combinaison": "52s", "pourcentage": 17 },
-            { "combinaison": "95s", "pourcentage": 20 },
-            { "combinaison": "84s", "pourcentage": 19 },
-            { "combinaison": "73s", "pourcentage": 18 },
-            { "combinaison": "62s", "pourcentage": 17 },
-            { "combinaison": "94s", "pourcentage": 19 },
-            { "combinaison": "83s", "pourcentage": 18 },
-            { "combinaison": "72s", "pourcentage": 17 },
-            { "combinaison": "93s", "pourcentage": 18 },
-            { "combinaison": "82s", "pourcentage": 17 },
-            { "combinaison": "92s", "pourcentage": 17 },
-            { "combinaison": "76o", "pourcentage": 18 },
-            { "combinaison": "65o", "pourcentage": 17 },
-            { "combinaison": "54o", "pourcentage": 16 },
-            { "combinaison": "43o", "pourcentage": 15 },
-            { "combinaison": "87o", "pourcentage": 17 },
-            { "combinaison": "74o", "pourcentage": 16 },
-            { "combinaison": "63o", "pourcentage": 15 },
-            { "combinaison": "52o", "pourcentage": 14 },
-            { "combinaison": "86o", "pourcentage": 16 },
-            { "combinaison": "75o", "pourcentage": 15 },
-            { "combinaison": "64o", "pourcentage": 14 },
-            { "combinaison": "53o", "pourcentage": 13 },
-            { "combinaison": "85o", "pourcentage": 15 },
-            { "combinaison": "74o", "pourcentage": 14 },
-            { "combinaison": "63o", "pourcentage": 13 },
-            { "combinaison": "84o", "pourcentage": 14 },
-            { "combinaison": "73o", "pourcentage": 13 },
-            { "combinaison": "62o", "pourcentage": 12 },
-            { "combinaison": "83o", "pourcentage": 13 },
-            { "combinaison": "72o", "pourcentage": 12 },
-            { "combinaison": "82o", "pourcentage": 12 },
-            { "combinaison": "92o", "pourcentage": 11 }
+        var combinaisons = [
+            { "combinaison": "AA", "pourcentage": 4 },
+            { "combinaison": "AKs", "pourcentage": 4 },
+            { "combinaison": "AQs", "pourcentage": 4 },
+            { "combinaison": "AKo", "pourcentage": 4 },
+            { "combinaison": "KK", "pourcentage": 4 },
+            { "combinaison": "QQ", "pourcentage": 4 },
+            { "combinaison": "JJ", "pourcentage": 4 },
+            { "combinaison": "TT", "pourcentage": 4 },
+            { "combinaison": "99", "pourcentage": 4 },
+
+            { "combinaison": "AJs", "pourcentage": 8 },
+            { "combinaison": "ATs", "pourcentage": 8 },
+            { "combinaison": "KQs", "pourcentage": 8 },
+            { "combinaison": "KJs", "pourcentage": 8 },
+            { "combinaison": "KTs", "pourcentage": 8 },
+            { "combinaison": "AQo", "pourcentage": 8 },
+            { "combinaison": "QJs", "pourcentage": 8 },
+            { "combinaison": "AJo", "pourcentage": 8 },
+            { "combinaison": "88", "pourcentage": 8 },
+
+            { "combinaison": "A9s", "pourcentage": 12 },
+            { "combinaison": "KQo", "pourcentage": 12 },
+            { "combinaison": "QTs", "pourcentage": 12 },
+            { "combinaison": "KJo", "pourcentage": 12 },
+            { "combinaison": "JTs", "pourcentage": 12 },
+            { "combinaison": "ATo", "pourcentage": 12 },
+            { "combinaison": "77", "pourcentage": 12 },
+
+            { "combinaison": "A8s", "pourcentage": 20 },
+            { "combinaison": "A7s", "pourcentage": 20 },
+            { "combinaison": "A6s", "pourcentage": 20 },
+            { "combinaison": "A5s", "pourcentage": 20 },
+            { "combinaison": "A4s", "pourcentage": 20 },
+            { "combinaison": "K9s", "pourcentage": 20 },
+            { "combinaison": "K8s", "pourcentage": 20 },
+            { "combinaison": "Q9s", "pourcentage": 20 },
+            { "combinaison": "QJo", "pourcentage": 20 },
+            { "combinaison": "J9s", "pourcentage": 20 },
+            { "combinaison": "KTo", "pourcentage": 20 },
+            { "combinaison": "QTo", "pourcentage": 20 },
+            { "combinaison": "JTo", "pourcentage": 20 },
+            { "combinaison": "T9s", "pourcentage": 20 },
+            { "combinaison": "A9o", "pourcentage": 20 },
+            { "combinaison": "66", "pourcentage": 20 },
+
+            { "combinaison": "A3s", "pourcentage": 30 },
+            { "combinaison": "A2s", "pourcentage": 30 },
+            { "combinaison": "K7s", "pourcentage": 30 },
+            { "combinaison": "K6s", "pourcentage": 30 },
+            { "combinaison": "K5s", "pourcentage": 30 },
+            { "combinaison": "Q8s", "pourcentage": 30 },
+            { "combinaison": "Q7s", "pourcentage": 30 },
+            { "combinaison": "J8s", "pourcentage": 30 },
+            { "combinaison": "T8s", "pourcentage": 30 },
+            { "combinaison": "K9o", "pourcentage": 30 },
+            { "combinaison": "Q9o", "pourcentage": 30 },
+            { "combinaison": "J9o", "pourcentage": 30 },
+            { "combinaison": "98s", "pourcentage": 30 },
+            { "combinaison": "A8o", "pourcentage": 30 },
+            { "combinaison": "A7o", "pourcentage": 30 },
+            { "combinaison": "A5o", "pourcentage": 30 },
+            { "combinaison": "55", "pourcentage": 30 },
         ];
 
         function capitalize(input) {
@@ -260,17 +175,32 @@
             }
         }
 
+        function checkEquality(input) {
+            var inputC = document.getElementById("c");
+            inputC.removeAttribute("disabled");
+
+            var inputA = document.getElementById("a").value;
+            var inputB = document.getElementById("b").value;
+
+            if (inputA === inputB) {
+                inputC.setAttribute("disabled", true);
+                calculerPourcentage();
+            } else {
+                focusNextInput(input);
+            }
+        }
+
         function calculerPourcentage() {
             var combinaison = document.getElementById("a").value.toUpperCase() + document.getElementById("b").value.toUpperCase();
             if (document.getElementById("c").value != null) {
                 combinaison = combinaison + document.getElementById("c").value.toLowerCase();
             }
 
-            // Recherche du pourcentage de victoire dans le tableau "Combinaisons"
+            // Recherche du pourcentage de victoire dans le tableau "combinaisons"
             var pourcentage = null;
-            for (var i = 0; i < Combinaisons.length; i++) {
-                if (Combinaisons[i].combinaison.toUpperCase() === combinaison.toUpperCase()) {
-                    pourcentage = Combinaisons[i].pourcentage;
+            for (var i = 0; i < combinaisons.length; i++) {
+                if (combinaisons[i].combinaison.toUpperCase() === combinaison.toUpperCase()) {
+                    pourcentage = combinaisons[i].pourcentage;
                     break;
                 }
             }
