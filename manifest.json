@@ -1,6 +1,6 @@
 {
-    "name": "🤫 Poker Whispers",
-    "short_name": "🤫 PW",
+    "name": "Poker whisper",
+    "short_name": "Poker whisper",
     "icons": [
       {
         "src": "img/logo.png",
@@ -10,7 +10,7 @@
     ],
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#ffffff"
+    "background_color": "#1e1e1e",
+    "theme_color": "#1e1e1e"
   }
   

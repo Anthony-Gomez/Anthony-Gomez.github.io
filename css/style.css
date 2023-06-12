@@ -56,5 +56,9 @@ p {
 
 img.logo {
     width: 5%;
-    cursor: pointer; 
+    cursor: pointer;
+}
+
+::placeholder {
+    color: lightslategray;
 }
