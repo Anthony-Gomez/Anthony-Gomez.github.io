@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta lang="FR">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Poker Whispers</title>
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <img id="logo" class="logo" src="img/logo.png" onclick="reset()">
+        <h1>💯 Preflop rater</h1>
+        <form id="handcode-form" class="handcode-form">
+            <input class="handcode-input uppercase" type="text" id="cardcode1" minlength="1" maxlength="1"
+                oninput="focusNextInput(this)" onkeydown="handleBackspace(event)" required placeholder="A"
+                autoComplete='off' autofocus>
+            <input class="handcode-input uppercase" type="text" id="cardcode2" minlength="1" maxlength="1"
+                oninput="checkEquality(this)" onkeydown="handleBackspace(event)" placeholder="Q" required
+                autoComplete='off'>
+            <input class="handcode-input lowercase" type="text" id="cardcode3" minlength="0" maxlength="1"
+                oninput="calculerPourcentage()" onkeydown="handleBackspace(event)" placeholder="s" autoComplete='off'
+                pattern="[SO]+">
+        </form>
+        <p id="score"></p>
+        <p id="rate"></p>
+    </div>
+</body>
+
+<script src="js/script.js"></script>
+
+</html>

@@ -1,0 +1,60 @@
+body {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-family: sans-serif;
+}
+
+.handcode-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.handcode-input {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    text-align: center;
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+
+}
+
+.handcode-input.uppercase {
+    text-transform: uppercase;
+}
+
+.handcode-input.lowercase {
+    text-transform: lowercase;
+}
+
+.responsive-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+p {
+    margin-top: 20px;
+    font-family: sans-serif;
+    font-size: xx-large;
+}
+
+img.logo {
+    width: 5%;
+    cursor: pointer; 
+}
