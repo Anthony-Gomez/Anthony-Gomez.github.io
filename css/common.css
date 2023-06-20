@@ -1,6 +1,7 @@
 body {
     background-color: #1e1e1e;
     color: #ffffff;
+    font-family: sans-serif;
 }
 
 .container {
@@ -14,7 +15,6 @@ body {
 h1 {
     font-size: 24px;
     margin-bottom: 20px;
-    font-family: sans-serif;
 }
 
 .handcode-form {
@@ -50,7 +50,6 @@ h1 {
 
 p {
     margin-top: 20px;
-    font-family: sans-serif;
     font-size: xx-large;
 }
 
@@ -61,4 +60,9 @@ img.logo {
 
 ::placeholder {
     color: lightslategray;
+}
+
+a {
+    color: white;
+    text-decoration: none;
 }

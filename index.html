@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Poker whisper</title>
     <link rel="icon" type="image/png" href="img/logo.png" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/common.css">
     <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
     <div class="container" onclick="reset()">
         <img id="logo" class="logo" src="img/logo.png">
-        <h1>💯 Preflop rater</h1>
+        <h1>💯 Preflop rater <a href="trainer.html">🏋️‍♂️</a></h1>
         <form id="handcode-form" class="handcode-form">
             <input class="handcode-input uppercase" type="text" id="cardcode1" minlength="1" maxlength="1"
                 oninput="focusNextInput(this)" onkeydown="handleBackspace(event)" required placeholder="A"
@@ -29,7 +29,8 @@
         <p id="score"></p>
         <p id="rate"></p>
     </div>
-    <script src="js/script.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/preflop-rater.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('js/service-worker.js')

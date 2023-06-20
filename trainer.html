@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta lang="FR">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Poker whisper</title>
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/trainer.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <div class="container">
+        <img id="logo" class="logo" src="img/logo.png">
+        <h1>🏋️‍♂️ Preflop trainer <a href="index.html">💯</a></h1>
+        <div id="handcode-form" class="handcode-form">
+            <input class="handcode-input uppercase" id="cardcode1" type="text" disabled></input>
+            <input class="handcode-input uppercase" id="cardcode2" type="text" disabled></input>
+            <input class="handcode-input lowercase" id="cardcode3" type="text" disabled></input>
+        </div>
+
+        <div class="rating">
+            <input type="radio" id="star5" name="rating" class="set" value=4>
+            <label for="star5"></label>
+            <input type="radio" id="star4" name="rating" class="set" value=8>
+            <label for="star4"></label>
+            <input type="radio" id="star3" name="rating" class="set" value=12>
+            <label for="star3"></label>
+            <input type="radio" id="star2" name="rating"class="set"  value=20>
+            <label for="star2"></label>
+            <input type="radio" id="star1" name="rating" class="set" value=30>
+            <label for="star1"></label>
+            <input type="radio" id="star0" name="rating" class="unset">
+            <label for="star0"></label>
+            <div>
+            <button id="submitRating" class="styled-button" onclick="submitRating(this)">🔮</button>
+            </div>
+        </div>
+        <p id="top"></p>
+    </div>
+    <script src="js/data.js"></script>
+    <script src="js/trainer.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('js/service-worker.js')
+                .then(function (registsation) {
+                    console.log('PWA OK', registration);
+                })
+                .catch(function (error) {
+                    console.log('PWA KO', error);
+                });
+        }
+    </script>
+</body>
+
+</html>
